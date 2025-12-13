@@ -59,9 +59,6 @@ export function JobCard({ job }: JobCardProps) {
               <span>用工时段: {job.workingPeriod}</span>
           </div>
         )}
-        <p className="text-sm text-muted-foreground pt-2 line-clamp-2">
-          {job.description}
-        </p>
 
         {job.contactPhone && (
            <div 
@@ -73,7 +70,10 @@ export function JobCard({ job }: JobCardProps) {
              <span className="font-bold text-lg text-secondary tracking-wider">{job.contactPhone}</span>
            </div>
         )}
-
+        
+        <p className="text-sm text-muted-foreground pt-2 line-clamp-2">
+          {job.description}
+        </p>
       </CardContent>
       <CardFooter>
          <Button className="w-full" variant="outline">
