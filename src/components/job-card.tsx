@@ -62,18 +62,23 @@ export function JobCard({ job }: JobCardProps) {
         <p className="text-sm text-muted-foreground pt-2 line-clamp-2">
           {job.description}
         </p>
-      </CardContent>
-      <CardFooter className="flex-col items-stretch gap-3">
+
         {job.contactPhone && (
-           <div className="flex items-center justify-center text-center p-3 bg-accent rounded-md">
+           <div 
+             className="flex items-center justify-center text-center p-3 my-4 bg-accent rounded-md cursor-pointer hover:bg-secondary/10 transition-colors"
+             onClick={handleCopy}
+             title="点击复制电话号码"
+           >
              <Phone className="w-5 h-5 mr-3 text-secondary" />
              <span className="font-bold text-lg text-secondary tracking-wider">{job.contactPhone}</span>
            </div>
         )}
-        <Button className="w-full" onClick={handleCopy} disabled={!job.contactPhone}>
-          <Copy className="mr-2 h-4 w-4" />
-          复制联系电话
-        </Button>
+
+      </CardContent>
+      <CardFooter>
+         <Button className="w-full" variant="outline">
+            查看详情
+          </Button>
       </CardFooter>
     </Card>
   );
