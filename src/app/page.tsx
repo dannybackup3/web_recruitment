@@ -59,9 +59,15 @@ export default function Home() {
       loadJobs();
     };
 
+    const handleJobPosted = () => {
+      loadJobs();
+    };
+
     window.addEventListener('dataSourceModeChange', handleModeChange);
+    window.addEventListener('jobPosted', handleJobPosted);
     return () => {
       window.removeEventListener('dataSourceModeChange', handleModeChange);
+      window.removeEventListener('jobPosted', handleJobPosted);
     };
   }, []);
 
