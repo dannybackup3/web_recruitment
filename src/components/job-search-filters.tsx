@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { jobTypes, locations } from '@/data/mockJobs';
+import { jobTypes, locations } from '@/lib/data';
 
 type JobSearchFiltersProps = {
   filters: {

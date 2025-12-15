@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import type { Job } from '@/services/types';
+import type { Job } from '@/lib/types';
 import { MapPin, JapaneseYen, CalendarDays, Clock, Phone, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 

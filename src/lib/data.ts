@@ -1,4 +1,4 @@
-import type { Job } from '@/services/types';
+import type { Job } from '@/lib/types';
 
 export const jobTypes: string[] = ['焊工', '铆工', '建筑工'];
 export const locations = ['北京', '上海', '广州', '深圳', '成都', '杭州', '重庆', '武汉', '雄安', '天津'];

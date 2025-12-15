@@ -2,8 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import type { Job } from '@/services/types';
-import { mockJobs } from '@/data/mockJobs';
+import type { Job } from '@/lib/types';
+import { mockJobs } from '@/lib/data';
 import { JobSearchFilters } from '@/components/job-search-filters';
 import { Skeleton } from '@/components/ui/skeleton';
 
