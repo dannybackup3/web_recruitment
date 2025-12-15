@@ -2,10 +2,23 @@ import type { Job } from '@/lib/types';
 import { mockJobs } from '@/lib/data';
 import { getMode } from '@/lib/config';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
+function getAPIBaseURL(): string {
+  if (typeof window === 'undefined') {
+    return process.env.NEXT_PUBLIC_API_URL || '';
+  }
+
+  const configuredURL = process.env.NEXT_PUBLIC_API_URL;
+  if (configuredURL) {
+    return configuredURL;
+  }
+
+  return '';
+}
 
 async function fetchFromAPI(endpoint: string): Promise<Job[]> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const baseURL = getAPIBaseURL();
+  const url = baseURL ? `${baseURL}${endpoint}` : `/api${endpoint}`;
+
   const response = await fetch(url, {
     method: 'GET',
     headers: {
