@@ -29,7 +29,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { jobTypes, locations } from '@/lib/data';
+import { jobTypes, locations } from '@/data/mockJobs';
+import { postJob } from '@/services/data';
 import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
@@ -62,14 +63,23 @@ export function PostJobDialog({ isOpen, onOpenChange }: PostJobDialogProps) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast({
-      title: '发布成功',
-      description: '您的职位信息已成功发布。',
-    });
-    form.reset();
-    onOpenChange(false);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const result = await postJob(values);
+      if (!result.success) throw new Error(result.error || '发布失败');
+      toast({
+        title: '发布成功',
+        description: '您的职位信息已成功发布。',
+      });
+      form.reset();
+      onOpenChange(false);
+    } catch (e) {
+      toast({
+        title: '发布失败',
+        description: e instanceof Error ? e.message : '网络或服务器错误',
+        variant: 'destructive',
+      });
+    }
   }
 
   return (

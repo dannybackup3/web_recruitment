@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Header } from '@/components/header';
 import { Toaster } from '@/components/ui/toaster';
-import { cn } from '@/lib/utils';
+import { cn } from '@/services/utils';
 
 export const metadata: Metadata = {
   title: '蓝领快聘 - 快速找到好工作',
