@@ -44,7 +44,7 @@ export async function bootstrap(env: Env) {
   const insertJob = db.prepare(
     'INSERT OR IGNORE INTO jobs (id, title, company, location, salary, type, description, duration, workingPeriod, contactPhone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
   );
-  const mockJobs = (await import('../../worker/data/mockJobs.json')).default || (await import('../../worker/data/mockJobs.json'));
+  const mockJobs = require('../data/mockJobs.json');
   for (const job of mockJobs) {
     await insertJob.bind(
       job.id,
