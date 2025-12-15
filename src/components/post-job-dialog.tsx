@@ -31,6 +31,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { jobTypes, locations } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
+import { createJob } from '@/lib/api';
 
 const formSchema = z.object({
   title: z.string().min(2, { message: '职位名称至少需要2个字符' }),
@@ -39,6 +40,7 @@ const formSchema = z.object({
   type: z.string({ required_error: '请选择工作类型' }),
   salary: z.string().min(3, { message: '请填写薪资范围' }),
   duration: z.string().min(1, { message: '请填写用工天数' }),
+  contactPhone: z.string().optional(),
   workingPeriod: z.string().optional(),
   description: z.string().min(10, { message: '职位描述至少需要10个字符' }),
 });
@@ -46,9 +48,10 @@ const formSchema = z.object({
 type PostJobDialogProps = {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
+  onJobPosted?: () => void;
 };
 
-export function PostJobDialog({ isOpen, onOpenChange }: PostJobDialogProps) {
+export function PostJobDialog({ isOpen, onOpenChange, onJobPosted }: PostJobDialogProps) {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,17 +62,29 @@ export function PostJobDialog({ isOpen, onOpenChange }: PostJobDialogProps) {
       duration: '',
       workingPeriod: '',
       description: '',
+      contactPhone: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast({
-      title: '发布成功',
-      description: '您的职位信息已成功发布。',
-    });
-    form.reset();
-    onOpenChange(false);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await createJob(values);
+      toast({
+        title: '发布成功',
+        description: '您的职位信息已成功发布。',
+      });
+      form.reset();
+      onOpenChange(false);
+      onJobPosted?.();
+      window.dispatchEvent(new Event('jobPosted'));
+    } catch (error) {
+      console.error('Failed to post job:', error);
+      toast({
+        title: '发布失败',
+        description: '发布职位时出错，请稍后重试。',
+        variant: 'destructive',
+      });
+    }
   }
 
   return (
