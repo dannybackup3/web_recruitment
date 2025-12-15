@@ -74,94 +74,122 @@ export function PostJobDialog({ isOpen, onOpenChange }: PostJobDialogProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[625px]">
+      <DialogContent className="sm:max-w-[625px] flex flex-col max-h-[90svh]">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-secondary">发布新的用工需求</DialogTitle>
           <DialogDescription>填写职位信息，让合适的工人快速找到您。</DialogDescription>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>职位名称</FormLabel>
-                    <FormControl>
-                      <Input placeholder="例如：电焊工" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="company"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>公司名称</FormLabel>
-                    <FormControl>
-                      <Input placeholder="您的公司或团队名称" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>工作地点</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <div className="overflow-y-auto -mr-6 pr-6">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>职位名称</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="选择工作地点" />
-                        </SelectTrigger>
+                        <Input placeholder="例如：电焊工" {...field} />
                       </FormControl>
-                      <SelectContent>
-                        {locations.map(loc => (
-                          <SelectItem key={loc} value={loc}>{loc}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="type"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>工作类型</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>公司名称</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="选择工作类型" />
-                        </SelectTrigger>
+                        <Input placeholder="您的公司或团队名称" {...field} />
                       </FormControl>
-                      <SelectContent>
-                        {jobTypes.map(type => (
-                          <SelectItem key={type} value={type}>{type}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="location"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>工作地点</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="选择工作地点" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {locations.map(loc => (
+                            <SelectItem key={loc} value={loc}>{loc}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>工作类型</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="选择工作类型" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {jobTypes.map(type => (
+                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="salary"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>薪资范围</FormLabel>
+                      <FormControl>
+                        <Input placeholder="例如：300-500元/天" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="duration"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>用工天数</FormLabel>
+                      <FormControl>
+                        <Input placeholder="例如：90天 或 长期" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormField
                 control={form.control}
-                name="salary"
+                name="workingPeriod"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>薪资范围</FormLabel>
+                    <FormLabel>用工时段 (可选)</FormLabel>
                     <FormControl>
-                      <Input placeholder="例如：300-500元/天" {...field} />
+                      <Input placeholder="例如：8月-12月" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -169,49 +197,23 @@ export function PostJobDialog({ isOpen, onOpenChange }: PostJobDialogProps) {
               />
               <FormField
                 control={form.control}
-                name="duration"
+                name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>用工天数</FormLabel>
+                    <FormLabel>职位描述</FormLabel>
                     <FormControl>
-                      <Input placeholder="例如：90天 或 长期" {...field} />
+                      <Textarea placeholder="详细描述工作内容、要求等..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            </div>
-            <FormField
-              control={form.control}
-              name="workingPeriod"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>用工时段 (可选)</FormLabel>
-                  <FormControl>
-                    <Input placeholder="例如：8月-12月" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>职位描述</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="详细描述工作内容、要求等..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <DialogFooter>
-              <Button type="submit">确认发布</Button>
-            </DialogFooter>
-          </form>
-        </Form>
+              <DialogFooter className="pt-4">
+                <Button type="submit">确认发布</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </div>
       </DialogContent>
     </Dialog>
   );
