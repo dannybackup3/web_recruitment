@@ -1,6 +1,4 @@
-import lessons from '../data/lessons.json';
-import decks from '../data/flashcards.json';
-import dailyWords from '../data/dailyWords.json';
+import mockJobs from '../data/mockJobs.json';
 
 interface Env {
   DB: D1Database;
@@ -18,9 +16,6 @@ CREATE TABLE IF NOT EXISTS jobs (
   duration TEXT NOT NULL,
   workingPeriod TEXT,
   contactPhone TEXT
-);
-  created_at TEXT NOT NULL,
-  FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS __migrations (
@@ -47,7 +42,7 @@ export async function bootstrap(env: Env) {
   const insertJob = db.prepare(
     'INSERT OR IGNORE INTO jobs (id, title, company, location, salary, type, description, duration, workingPeriod, contactPhone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
   );
-  const mockJobs = (await import('../../worker/data/mockJobs.json')).default || (await import('../../worker/data/mockJobs.json'));
+  const mockJobs = require('../data/mockJobs.json');
   for (const job of mockJobs) {
     await insertJob.bind(
       job.id,

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import type { Job } from '@/lib/types';
-import { mockJobs } from '@/lib/data';
+import { getJobs } from '@/lib/api';
 import { JobSearchFilters } from '@/components/job-search-filters';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -31,14 +31,48 @@ function JobCardSkeleton() {
   }
 
 export default function Home() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
     keyword: '',
     type: 'all',
     location: 'all',
   });
 
+  useEffect(() => {
+    const loadJobs = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getJobs();
+        setJobs(data);
+      } catch (error) {
+        console.error('Failed to load jobs:', error);
+        setJobs([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadJobs();
+
+    const handleModeChange = () => {
+      loadJobs();
+    };
+
+    const handleJobPosted = () => {
+      loadJobs();
+    };
+
+    window.addEventListener('dataSourceModeChange', handleModeChange);
+    window.addEventListener('jobPosted', handleJobPosted);
+    return () => {
+      window.removeEventListener('dataSourceModeChange', handleModeChange);
+      window.removeEventListener('jobPosted', handleJobPosted);
+    };
+  }, []);
+
   const filteredJobs = useMemo(() => {
-    return mockJobs.filter(job => {
+    return jobs.filter(job => {
       const keywordMatch =
         filters.keyword === '' ||
         job.title.toLowerCase().includes(filters.keyword.toLowerCase()) ||
@@ -50,7 +84,7 @@ export default function Home() {
 
       return keywordMatch && typeMatch && locationMatch;
     });
-  }, [filters]);
+  }, [jobs, filters]);
 
   return (
     <>
@@ -64,7 +98,13 @@ export default function Home() {
 
         <JobSearchFilters filters={filters} onFiltersChange={setFilters} />
 
-        {filteredJobs.length > 0 ? (
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 animate-in fade-in-50">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <JobCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : filteredJobs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 animate-in fade-in-50">
             {filteredJobs.map(job => (
               <JobCard key={job.id} job={job} />
