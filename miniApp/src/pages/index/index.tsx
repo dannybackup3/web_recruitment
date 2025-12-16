@@ -1,5 +1,6 @@
+
 import { useState, useMemo, useEffect } from 'react';
-import { View, ScrollView, Text, ActivityIndicator } from '@tarojs/components';
+import { View, ScrollView, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { JobCard } from '@/components/job-card';
 import type { Job } from '@/lib/types';
