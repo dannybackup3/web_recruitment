@@ -128,9 +128,6 @@ export default {
         return json({ success: true, id }, req, path, { status: 201 });
       }
 
-      // 404
-      return json({ message: 'Not Found' }, req, path, { status: 404 });
-
     } catch (e: any) {
       return json({ message: 'Internal Error', error: String(e?.message || e) }, req, path, { status: 500 });
     }
