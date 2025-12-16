@@ -1,0 +1,115 @@
+// src/app.scss
+
+// ==================== 1. Taro UI 自定义主题（如果你用了 Taro UI） ====================
+// 把主要颜色映射到 Taro UI 的变量，让 AtButton 等组件用你的 primary 色
+$at-primary-color: hsl(263.4, 95.2%, 58.6%);   // 暗模式 primary（亮模式下也会用接近色）
+$at-success-color: hsl(120, 60%, 50%);         // 可自定义
+$at-warning-color: hsl(45, 100%, 50%);
+$at-danger-color: hsl(0, 84.2%, 60.2%);
+
+// 引入 Taro UI 样式（如果你安装并使用了 taro-ui）
+@import '~taro-ui/dist/style/index.scss';
+
+
+// ==================== 2. 从你的 Web globals.css 提取的 SCSS 变量 ====================
+// 亮模式（默认）
+$page-bg: hsl(0, 0%, 100%);
+$page-fg: hsl(222.2, 84%, 4.9%);
+
+$card-bg: hsl(0, 0%, 100%);
+$card-fg: hsl(222.2, 84%, 4.9%);
+
+$primary: hsl(222.2, 47.4%, 11.2%);
+$primary-fg: hsl(210, 40%, 98%);
+
+$secondary: hsl(210, 40%, 96.1%);
+$secondary-fg: hsl(222.2, 47.4%, 11.2%);
+
+$muted: hsl(210, 40%, 96.1%);
+$muted-fg: hsl(215.4, 16.3%, 46.9%);
+
+$accent: hsl(210, 40%, 96.1%);
+$accent-fg: hsl(222.2, 47.4%, 11.2%);
+
+$destructive: hsl(0, 84.2%, 60.2%);
+$destructive-fg: hsl(210, 40%, 98%);
+
+$border: hsl(214.3, 31.8%, 91.4%);
+$input-border: hsl(214.3, 31.8%, 91.4%);
+$ring: hsl(222.2, 84%, 4.9%);
+
+$radius: 0.5rem;  // 8px
+
+
+// ==================== 3. 全局样式应用 ====================
+page {
+  min-height: 100vh;
+  background-color: $page-bg;
+  color: $page-fg;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+// 模拟你的 @layer base { * { @apply border-border; } }
+view, text, image, button {
+  border-color: $border;
+}
+
+// 输入框、卡片等常用背景
+.input, .card {
+  background-color: $card-bg;
+  color: $card-fg;
+  border-radius: $radius;
+  border: 1rpx solid $border;
+}
+
+// 主要按钮样式（如果你不用 Taro UI 的 AtButton，可以用这个自定义）
+.primary-button {
+  background-color: $primary;
+  color: $primary-fg;
+  border-radius: $radius;
+  padding: 20rpx 40rpx;
+  text-align: center;
+}
+
+// 辅助按钮
+.secondary-button {
+  background-color: $secondary;
+  color: $secondary-fg;
+  border-radius: $radius;
+}
+
+// 破坏性按钮
+.destructive-button {
+  background-color: $destructive;
+  color: $destructive-fg;
+}
+
+// 去除小程序默认按钮边框
+button::after {
+  border: none;
+}
+
+// ==================== 4. 可选：简单模拟暗模式（小程序目前不支持自动暗模式，需要手动切换） ====================
+// 如果你以后想支持暗模式，可以加一个 class，比如在 page 上加 .dark
+page.dark {
+  background-color: hsl(222.2, 84%, 4.9%);
+  color: hsl(210, 40%, 98%);
+
+  // 暗模式下重新定义变量（可以写成嵌套）
+  --card-bg: hsl(222.2, 47.4%, 11.2%);
+  --primary: hsl(263.4, 95.2%, 58.6%);   // 你暗模式里的 primary
+
+  // 加上径向渐变背景（模仿你的 Web 暗模式）
+  background-image: radial-gradient(circle at top left, hsl(222, 47%, 11%), hsl(222, 84%, 5%) 50%);
+}
+
+// 在暗模式下调整卡片等
+page.dark .card {
+  background-color: hsl(222.2, 47.4%, 11.2%);
+  color: hsl(210, 40%, 98%);
+  border-color: hsl(217.2, 32.6%, 17.5%);
+}
+
+page.dark .primary-button {
+  background-color: hsl(263.4, 95.2%, 58.6%);
+}
