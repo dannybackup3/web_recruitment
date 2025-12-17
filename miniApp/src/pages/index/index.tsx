@@ -99,11 +99,7 @@ export default function Home() {
 
           <JobSearchFilters filters={filters} onFiltersChange={setFilters} />
 
-          {isLoading ? (
-            <View className='loading-container'>
-              <ActivityIndicator mode='center' content='加载中...' size={48} />
-            </View>
-          ) : filteredJobs.length > 0 ? (
+          {isLoading ? null : filteredJobs.length > 0 ? (
             <View className='job-list'>
               {filteredJobs.map(job => (
                 <JobCard key={job.id} job={job} />

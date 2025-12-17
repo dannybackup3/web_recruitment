@@ -5,7 +5,7 @@ import Taro from '@tarojs/taro';
 
 function getAPIBaseURL(): string {
   // Use a publicly accessible development server or a configurable URL for production
-  return 'http://localhost:8787'; // Replace with your actual worker URL if deployed
+  return 'https://recruitment.takeanything.store'; // Replace with your actual worker URL if deployed
 }
 
 async function fetchFromAPI(endpoint: string, options: Taro.request.Option = { method: 'GET' }): Promise<any> {
