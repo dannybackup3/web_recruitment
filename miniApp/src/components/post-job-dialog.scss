@@ -27,49 +27,49 @@ $placeholder-color: #bbbbbb;
     left: 0;
     width: 100%;
     background-color: #fff;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    border-top-left-radius: 12rpx;
+    border-top-right-radius: 12rpx;
     display: flex;
     flex-direction: column;
     max-height: 90vh;
   }
 
   &__header {
-    padding: 16px;
-    border-bottom: 1px solid $border-color;
+    padding: 16rpx;
+    border-bottom: 1rpx solid $border-color;
     text-align: center;
     position: relative;
   }
 
   &__title {
-    font-size: 20px;
+    font-size: 20rpx;
     font-weight: 500;
   }
 
   &__close {
     position: absolute;
-    right: 16px;
-    top: 16px;
-    padding: 4px;
+    right: 16rpx;
+    top: 16rpx;
+    padding: 4rpx;
   }
 }
 
 .form-content {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 20px;
+  padding-bottom: 20rpx;
 }
 
 .form-item {
   display: flex;
   align-items: center;
-  padding: 14px 16px;
-  border-bottom: 1px solid $border-color;
+  padding: 14rpx 16rpx;
+  border-bottom: 1rpx solid $border-color;
   background-color: #fff;
-  font-size: 18px;
+  font-size: 18rpx;
 
   &__label {
-    width: 6.5em; // ~104px, to align with other fields
+    width: 6.5em; // ~104rpx, to align with other fields
     color: $text-color;
     flex-shrink: 0;
   }
@@ -87,7 +87,7 @@ $placeholder-color: #bbbbbb;
   // For native Input components
   input {
     width: 100%;
-    font-size: 16px;
+    font-size: 16rpx;
     color: $text-color;
     &::placeholder, .placeholder-class {
         color: $placeholder-color;
@@ -102,17 +102,17 @@ $placeholder-color: #bbbbbb;
 
   &__textarea {
     width: 100%;
-    height: 80px;
-    padding: 8px;
+    height: 80rpx;
+    padding: 8rpx;
     background-color: #f7f7f7;
-    border-radius: 4px;
-    margin-top: 8px;
-    font-size: 15px;
+    border-radius: 4rpx;
+    margin-top: 8rpx;
+    font-size: 15rpx;
     line-height: 1.4;
   }
 }
 
 .form-footer {
-  padding: 24px 16px;
+  padding: 24rpx 16rpx;
   background-color: #fff;
 }

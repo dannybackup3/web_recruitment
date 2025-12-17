@@ -146,11 +146,7 @@ export function PostJobDialog({ isOpen, onClose }: PostJobDialogProps) {
             </FormItem>
              <FormItem label='用工时段'>
                 <Input name='workingPeriod' type='text' placeholder='(选填) 例如：8月-12月' value={formData.workingPeriod || ''} onInput={v => handleChange('workingPeriod', v)} />
-            </FormItem>
-            <FormItem label='联系电话'>
-                {/* 联系方式输入已移除，合规处理 */}
-            </FormItem>
-            
+            </FormItem>           
             <View className='form-item'>
                 <Text className='form-item__label'>职位描述</Text>
                  <Textarea

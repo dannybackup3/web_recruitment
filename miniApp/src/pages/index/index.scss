@@ -8,7 +8,7 @@ $page-bg: #f7f8fa;
 $border-color: #e5e7eb;
 $tag-bg: #eef2ff;
 $tag-text: #4338ca;
-$radius: 8px;
+$radius: 8rpx;
 
 .index-page {
   background-color: $page-bg;
@@ -24,57 +24,57 @@ $radius: 8px;
 
 
 .page-container {
-  padding: 16px;
+  padding: 16rpx;
 }
 
 .page-header {
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 16rpx;
 
   &__title {
     display: block;
-    font-size: 24px;
+    font-size: 24rpx;
     font-weight: bold;
     color: $text-color-primary;
-    margin-bottom: 4px;
+    margin-bottom: 4rpx;
   }
 
   &__subtitle {
     display: block;
-    font-size: 14px;
+    font-size: 14rpx;
     color: $text-color-secondary;
   }
 }
 
 .loading-container {
-  padding: 40px 0;
+  padding: 40rpx 0;
 }
 
 .job-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 16px;
+  gap: 12rpx;
+  margin-top: 16rpx;
 }
 
 .no-results {
   text-align: center;
-  padding: 48px 16px;
-  margin-top: 24px;
+  padding: 48rpx 16rpx;
+  margin-top: 24rpx;
   background-color: $card-bg;
   border-radius: $radius;
 
   &__title {
     display: block;
-    font-size: 18px;
+    font-size: 18rpx;
     font-weight: 500;
     color: $text-color-light;
-    margin-bottom: 8px;
+    margin-bottom: 8rpx;
   }
 
   &__subtitle {
     display: block;
-    font-size: 14px;
+    font-size: 14rpx;
     color: $text-color-secondary;
   }
 }

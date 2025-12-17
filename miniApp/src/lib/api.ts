@@ -49,7 +49,7 @@ export async function getJobs(): Promise<Job[]> {
   return [...mockJobs];
 }
 
-export async function createJob(job: Omit<Job, 'id'>): Promise<Job> {
+export async function createJob(job: Omit<Job, 'id' | 'createdAt'>): Promise<Job> {
   const mode = getMode();
 
   if (mode === 'api') {
@@ -70,8 +70,7 @@ export async function createJob(job: Omit<Job, 'id'>): Promise<Job> {
   // Local mode: simulate creating a job
   console.log('Simulating job creation in local mode:', job);
   const newId = `mock_${Date.now()}`;
-  const newJob = { ...job, id: newId };
+  const newJob = { ...job, id: newId, createdAt: Date.now() };
   mockJobs.unshift(newJob); // Add to the top of the list
-  
   return newJob;
 }

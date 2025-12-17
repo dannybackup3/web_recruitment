@@ -28,6 +28,9 @@ export default function Home() {
     location: 'all',
   });
   const [isPostJobOpen, setIsPostJobOpen] = useState(false);
+  // 分页相关状态
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
 
   const loadJobs = async () => {
     setIsLoading(true);
@@ -75,19 +78,27 @@ export default function Home() {
   }, []);
 
   const filteredJobs = useMemo(() => {
-    return jobs.filter(job => {
-      const keywordMatch =
-        !filters.keyword ||
-        job.title.toLowerCase().includes(filters.keyword.toLowerCase()) ||
-        job.company.toLowerCase().includes(filters.keyword.toLowerCase()) ||
-        job.description.toLowerCase().includes(filters.keyword.toLowerCase());
+    return jobs
+      .slice()
+      .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+      .filter(job => {
+        const keywordMatch =
+          !filters.keyword ||
+          job.title.toLowerCase().includes(filters.keyword.toLowerCase()) ||
+          job.company.toLowerCase().includes(filters.keyword.toLowerCase()) ||
+          job.description.toLowerCase().includes(filters.keyword.toLowerCase());
 
-      const typeMatch = filters.type === 'all' || job.type === filters.type;
-      const locationMatch = filters.location === 'all' || job.location === filters.location;
+        const typeMatch = filters.type === 'all' || job.type === filters.type;
+        const locationMatch = filters.location === 'all' || job.location === filters.location;
 
-      return keywordMatch && typeMatch && locationMatch;
-    });
+        return keywordMatch && typeMatch && locationMatch;
+      });
   }, [jobs, filters]);
+
+  // 分页后的职位
+  const pagedJobs = useMemo(() => {
+    return filteredJobs.slice(0, currentPage * pageSize);
+  }, [filteredJobs, currentPage, pageSize]);
 
   const [headerHeight, setHeaderHeight] = useState(80);
    useEffect(() => {
@@ -117,11 +128,20 @@ export default function Home() {
           <JobSearchFilters filters={filters} onFiltersChange={setFilters} />
 
           {isLoading ? null : filteredJobs.length > 0 ? (
-            <View className='job-list'>
-              {filteredJobs.map(job => (
-                <JobCard key={job.id} job={job} />
-              ))}
-            </View>
+            <>
+              <View className='job-list'>
+                {pagedJobs.map(job => (
+                  <JobCard key={job.id} job={job} />
+                ))}
+              </View>
+              {pagedJobs.length < filteredJobs.length ? (
+                <View className='load-more-container'>
+                  <Text className='load-more-btn' onClick={() => setCurrentPage(p => p + 1)}>加载更多</Text>
+                </View>
+              ) : filteredJobs.length > 0 ? (
+                <View className='no-more-jobs'>没有更多职位了</View>
+              ) : null}
+            </>
           ) : (
             <NoResults />
           )}

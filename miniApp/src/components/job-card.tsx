@@ -21,6 +21,15 @@ export function JobCard({ job }: JobCardProps) {
       duration: 1200,
     });
   };
+  // 格式化时间戳为 YYYY-MM-DD
+  const formatDate = (timestamp?: number) => {
+    if (!timestamp) return '';
+    const d = new Date(timestamp);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
   return (
     <View className='job-card'>
       <View className='job-card__header'>
@@ -50,8 +59,13 @@ export function JobCard({ job }: JobCardProps) {
             <Text>用工时段: {job.workingPeriod}</Text>
           </View>
         )}
+        {/* 新增：显示创建时间 */}
+        <View className='job-card__info-item'>
+          <CalendarDays className='job-card__icon' size={16} />
+          <Text>发布时间: {formatDate(job.createdAt)}</Text>
+        </View>
       </View>
-      
+
       <Text className='job-card__description'>{job.description}</Text>
 
       <View className='job-card__footer'>

@@ -8,4 +8,5 @@ export interface Job {
   description: string;
   duration: string;
   workingPeriod?: string;
+  createdAt: number; // 时间戳，职位发布时间
 }

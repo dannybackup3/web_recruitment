@@ -5,9 +5,9 @@ $default-text: #4b5563;
 .custom-tag {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
-  border-radius: 9999px; // circle
-  font-size: 13px;
+  padding: 4rpx 10rpx;
+  border-radius: 9999rpx; // circle
+  font-size: 13rpx;
   line-height: 1.2;
   background-color: $default-bg;
   color: $default-text;
