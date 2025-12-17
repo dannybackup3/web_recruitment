@@ -58,9 +58,9 @@ export async function createJob(job: Omit<Job, 'id' | 'createdAt'>): Promise<Job
         method: 'POST',
         data: job,
       });
-      // The API should return the full job object or at least the new ID.
-      // Assuming it returns { id: newId, ... }
-      return { ...job, id: result.id };
+      // The API should return the full job object or at least the new ID and createdAt.
+      // 优先用API返回的createdAt，否则用本地时间
+      return { ...job, id: result.id, createdAt: result.createdAt || Date.now() };
     } catch (error) {
       console.error('Failed to create job via API:', error);
       throw error; // Re-throw to be handled by the caller
